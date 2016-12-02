@@ -1,36 +1,49 @@
-
 <?php
-	$sql="select cart.id,products.product_id,cart_detail.product_id,product_title, fullname,date,cart_id,quantity,price from cart,cart_detail,products where products.product_id=cart_detail.product_id and cart_detail.cart_id=cart.id";
-	$run_cart=mysql_query($sql);
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$csdl = "mydb";
+	$connection = mysqli_connect($servername, $username, $password, $csdl);
+	
+	$sql = "select * from bill";
+	$hoadon = mysqli_query($connection, $sql);
 ?>
-<table width="100%" border="1" >
+<table width="auto" height="200" border="1">
   <tr>
-    <td colspan="7"><div align="center">Liệt kê đơn hàng</div></td>
+    <td colspan="8"><div align="center">Danh sách đơn hàng</div></td>
   </tr>
   <tr>
-    <td>ID</td>
-    <td>Tên người mua</td>
-    <td>Sản phẫm</td>
-    <td>Số lượng</td>
-    <td>Giá</td>
-    <td>Ngày đặt</td>
-    <td>Quản lý</td>
+    <td width="50" align="center">STT</td>
+    <td width="100" align="center">Mã hóa đơn</td>
+    <td width="150" align="center">Tên khách hàng</td>
+	<td width="100" align="center">Đơn giá</td>
+	<td width="100" align="center">Thời gian</td>
+	<td width="100" align="center">Mã khách hàng</td>
+	<td colspan="2" align="center">Quản lý</td>
   </tr>
-  <?php
-  	$i=0;
-  	while($dong_cart=mysql_fetch_array($run_cart)){
+    <?php
+   	$stt=0;
+  	while($dong = mysqli_fetch_array($hoadon)){
   ?>
   <tr>
-    <td><?php echo $i; ?></td>
-    <td><?php echo $dong_cart['fullname'] ?></td>
-    <td><?php  echo $dong_cart['product_title'];?></td>
-    <td><?php  echo $dong_cart['quantity']?></td>
-    <td><?php  echo $dong_cart['price']?></td>
-    <td><?php  echo $dong_cart['date']?></td>
-    <td><a href="modules/donhang/xuly.php?id=<?php echo $dong_cart['id'] ?>">Xóa</a></td>
+
+    <td align="center"><?php echo $stt ?></td>
+    <td align="center"><?php echo $dong['bill_id'] ?> </td>
+	<td align="center"><?php echo $dong['customer_name'] ?> </td>
+	<td align="center"><?php echo $dong['bill_price'] ?> </td>
+	<td align="center"><?php echo $dong['bill_time'] ?> </td>
+	<td align="center"><?php echo $dong['customer_customer_id'] ?> </td>
+	
+    <td width="60" align="center"><a href="index.php?quanly=hoadon&ac=sua&id=<?php echo $dong['bill_id'] ?>">Chi tiết</a></td>
+    <td width="50" align="center">
+		<form action="modules/hoadon/xuly.php?id=<?php echo $dong['bill_id'] ?>" method="post" enctype="multipart/form-data">
+			<input type="submit" name="xoa" value="Xoa">
+		</form>
+	</td>
   </tr>
   <?php
-  $i++;
+  $stt++;
 	}
   ?>
 </table>
+

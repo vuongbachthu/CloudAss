@@ -1,35 +1,33 @@
 <?php
-	include('../config.php');
-		$id=$_GET['id'];
-		$product_title=$_POST['product_title'];
-		$product_desc=$_POST['product_desc'];
-		$product_cat=$_POST['product_cat'];
-		$product_brand=$_POST['product_brand'];
-		$product_keyword=$_POST['product_keyword'];
-		$product_price=$_POST['product_price'];
-		$product_image=$_FILES['image']['name'];
-        $product_image_tmp=$_FILES['image']['tmp_name'];
-        move_uploaded_file($product_image_tmp,"uploads/".$product_image);
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$csdl = "mydb";
+		$connection = mysqli_connect($servername, $username, $password, $csdl);
 		
+		$product_id = $_POST['product_id'];
+		$product_name = $_POST['product_name'];
+		$product_price = $_POST['product_price'];
+		$product_number = $_POST['product_number'];
+		$product_type = $_POST['product_type'];
+		
+        
 	if(isset($_POST['them'])){
 		//them
-		
-		 $sql="insert into products (product_title,product_price,product_cat,product_brand,product_desc,product_image,product_keywords) values('$product_title','$product_price','$product_cat','$product_brand','$product_desc','$product_image','$product_keyword')";
-		mysql_query($sql) or die('ko the insert');
+		$sql="insert into product (product_id, product_name, product_price, product_number, type_type_id) values('$product_id','$product_name','$product_price','$product_number','$product_type')";
+		mysqli_query($connection, $sql) or die('ko the insert');
 		header('location:../../index.php?quanly=sanpham&ac=them');
-	}elseif(isset($_POST['sua'])){
+	}else if(isset($_POST['sua'])){
 		//sua
-		if($product_image!=''){
-		$sql="update products set product_title ='$product_title',product_price='$product_price',product_cat='$product_cat',product_brand='$product_brand',product_desc='$product_desc',product_image='$product_image',product_keywords='$product_keyword' where product_id='$id'";
-		}else{
-		$sql="update products set product_title ='$product_title',product_price='$product_price',product_cat='$product_cat',product_brand='$product_brand',product_desc='$product_desc',product_keywords='$product_keyword' where product_id='$id'";
-		}
-		mysql_query($sql);
-		header('location:../../index.php?quanly=sanpham&ac=sua&id='.$id);
-	}else{
-	//xóa
-	$sql="delete from products where product_id='$id'";
-	mysql_query($sql);
-	header('location:../../index.php?quanly=sanpham&ac=them');
+
+		$sql="update product set product_id ='$product_id', product_name='$product_name', product_price='$product_price', product_number='$product_number', type_type_id='$product_type' where product_id='$product_id'";
+		
+		mysqli_query($connection, $sql) or die('ko the Update');
+		header('location:../../index.php?quanly=sanpham&ac=sua&id='.$product_id);
+	}else if(isset($_POST['xoa'])){
+		//xóa
+		$sql="delete from product where product_id = 'SP03'";
+		mysqli_query($connection, $sql);
+		header('location:../../index.php?quanly=sanpham&ac=sua&id='.$product_id);
 	}
 ?>

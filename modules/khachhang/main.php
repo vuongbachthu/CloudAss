@@ -7,14 +7,14 @@
 		$tam='';
 	}
 	if($tam=='them'){
-		include('modules/hoadon/them.php');
+		include('modules/khachhang/them.php');
 	}else if($tam=='sua'){
-		include('modules/hoadon/sua.php');
+		include('modules/khachhang/sua.php');
 	}
 ?>
 </div>
 <div class="content_right">
 	<?php
-		include('modules/hoadon/lietke.php');
+		include('modules/khachhang/lietke.php');
 	?>
 </div>

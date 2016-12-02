@@ -1,30 +1,42 @@
 <?php
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$csdl = "mydb";
+	$connection = mysqli_connect($servername, $username, $password, $csdl);
 	
-	$sql="select * from loai order by loai_id asc ";
-	$loai=mysql_query($sql);
+	$sql = "select * from type";
+	$loai = mysqli_query($connection, $sql);
 ?>
-<table width="268" height="124" border="1">
+<table width="auto" height="200" border="1">
   <tr>
-    <td colspan="4"><div align="center">Liệt kê loại</div></td>
+    <td colspan="5"><div align="center">Danh sách loại sản phẩm</div></td>
   </tr>
   <tr>
-    <td width="60">ID</td>
-    <td width="56">Tên loại</td>
-    <td colspan="2">Quản lý</td>
+    <td width="70" align="center">STT</td>
+    <td width="150" align="center">Mã loại sản phẩm</td>
+    <td width="150" align="center">Tên loại sản phẩm</td>
+	<td colspan="2" align="center">Quản lý</td>
   </tr>
     <?php
-   	$i=0;
-  	while($dong=mysql_fetch_array($loai)){
+   	$stt=0;
+  	while($dong = mysqli_fetch_array($loai)){
   ?>
   <tr>
 
-    <td><?php echo $i; ?></td>
-    <td><?php echo $dong['tenloai'] ?> </td>
-    <td width="25"><a href="index.php?quanly=loai&ac=sua&id=<?php echo $dong['loai_id'] ?>">Sửa</a></td>
-    <td width="170"><a href="modules/loai/xuly.php?id=<?php echo $dong['loai_id'] ?>">Xóa</a></td>
+    <td align="center"><?php echo $stt ?></td>
+    <td align="center"><?php echo $dong['type_id'] ?> </td>
+	<td align="center"><?php echo $dong['type_name'] ?> </td>
+	
+    <td width="50" align="center"><a href="index.php?quanly=loai&ac=sua&id=<?php echo $dong['type_id'] ?>">Sửa</a></td>
+    <td width="50" align="center">
+		<form action="modules/loai/xuly.php?id=<?php echo $dong['type_id'] ?>" method="post" enctype="multipart/form-data">
+			<input type="submit" name="xoa" value="Xoa">
+		</form>
+	</td>
   </tr>
   <?php
-  $i++;
+  $stt++;
 	}
   ?>
 </table>

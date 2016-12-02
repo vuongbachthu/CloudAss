@@ -1,90 +1,54 @@
 <?php
-	$sql="select * from products where product_id=$_GET[id]";
-	$sanpham=mysql_query($sql);
-	$row=mysql_fetch_array($sanpham);
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$csdl = "mydb";
+	$connection = mysqli_connect($servername, $username, $password, $csdl);
+	$id = $_GET['id'];
+	
+	$sql = "select * from product where product_id = 'SP01'";
+	$sanpham = mysqli_query($connection, $sql);
+	$row = mysqli_fetch_array($sanpham);
+	
 ?>
 <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
 
 <form action="modules/sanpham/xuly.php?id=<?php echo $row['product_id'] ?>" method="post" enctype="multipart/form-data">
-<table width="200" border="1">
+<table width="auto" height="100px" border="1">
   <tr>
-    <td colspan="2">Sửa sản phẩm</td>
+    <td colspan="5" align="center" height="50px">Sửa sản phẩm</td>
   </tr>
   <tr>
-    <td>Product_title</td>
+    <td width="130" height="40px">Mã sản phẩm</td>
+    <td><input type="text" name="product_id" id="product_id" value="<?php echo $row['product_id'] ?>"></td>
+	
+  </tr>
+  <tr>
+    <td width="130" height="40px">Tên sản phẩm</td>
     <td>
-    <input type="text" name="product_title" id="product_title" value="<?php echo $row['product_title'] ?>"></td>
+      <input type="text" name="product_name" id="product_name" value="<?php echo $row['product_name'] ?>"/></td>
   </tr>
   <tr>
-    <td>Product_price</td>
+    <td width="130" height="40px">Giá</td>
     <td>
-      <input type="text" name="product_price" id="product_price" value="<?php echo $row['product_price'] ?>" /></td>
+      <input type="text" name="product_price" id="product_price" value="<?php echo $row['product_price'] ?>"/></td>
   </tr>
   <tr>
-    <td>Product_cat</td>
+    <td width="130" height="40px">Số lượng</td>
     <td>
-      <select name="product_cat" id="product_cat">
-      <?php
-	  		$sql="select * from loai";
-			$cat=mysql_query($sql);
-			while($dong_cat=mysql_fetch_array($cat)){
-				if($dong_cat['loai_id']==$row['product_cat']){
-	  ?>	
-      				<option value="<?php echo $dong_cat['loai_id'] ?>" selected="selected"><?php echo $dong_cat['tenloai'] ?></option>
-      <?php
-			}else{?>
-				<option value="<?php echo $dong_cat['loai_id'] ?>"><?php echo $dong_cat['tenloai'] ?></option>
-	  
-      <?php
-			}
-			}
-	  ?>
-      </select></td>
+      <input type="text" name="product_number" id="product_number" value="<?php echo $row['product_number'] ?>"/></td>
   </tr>
   <tr>
-    <td>Product_brand</td>
-    <td>  <select name="product_brand" id="product_brand">
-      <?php
-	  		$sql="select * from hieu";
-			$hieu=mysql_query($sql);
-			while($dong=mysql_fetch_array($hieu)){
-				if($dong['hieu_id']==$row['product_brand']){
-	  ?>	
-      				<option value="<?php echo $dong['hieu_id'] ?>" selected="selected"><?php echo $dong['tenhieu'] ?></option>
-      <?php
-			}else{?>
-	 			<option value="<?php echo $dong['hieu_id'] ?>"><?php echo $dong['tenhieu'] ?></option>
-      <?php
-			}
-			}
-	  ?>
-      </select></td>
+    <td width="130" height="40px">Loại sản phẩm</td>
+    <td ><input type="text" name="product_type" id="product_type" value="<?php echo $row['type_type_id'] ?>"/></td>
   </tr>
-  <tr>
-    <td>Product_desc</td>
-    <td>
-      <textarea name="product_desc" id="product_desc" cols="45" rows="5"><?php echo $row['product_desc'] ?></textarea></td>
-  </tr>
-  <tr>
-    <td>Product_image</td>
-    <td><input type="file"  name="image"  />
-    <?php
-		echo '<img src="modules/sanpham/uploads/'.$row['product_image'].'" width="80" height="80"/> ';
-	?>
-    </td>
-  </tr>
-  <tr>
-    <td>Product_keywords</td>
-    <td>
-      <input type="text" name="product_keyword" id="product_keyword" value="<?php echo $row['product_keywords'] ?>" /></td>
-  </tr>
-  <tr>
-    <td colspan="2">
-    <input type="submit" name="sua" value="Sửa">    </td>
+
+  <tr width="auto" height="40px" align="center">
+    <td colspan="5">
+    <input type="submit" name="sua" value="Sửa Sản Phẩm">    </td>
   </tr>
 </table>
 </form>
-
 
 
