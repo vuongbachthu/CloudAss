@@ -16,6 +16,15 @@
     <td><input type="text" name="customer_name" id="customer_name" /></td>
   </tr>
   <tr>
+    <td width="130" height="40px">Địa chỉ</td>
+    <td><input type="text" name="customer_address" id="customer_address" /></td>
+  </tr>
+  <tr>
+    <td width="130" height="40px">Số điện thoại</td>
+    <td><input type="text" name="customer_phone" id="customer_phone" /></td>
+  </tr>
+  
+  <tr>
     <td width="130" height="40px">Thời gian</td>
     <td><input type="text" name="bill_time" id="bill_time" /></td>
   </tr>
